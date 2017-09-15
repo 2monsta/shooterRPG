@@ -23,7 +23,7 @@ class Player(Sprite):
 		elif(self.should_move_right):
 			self.x += self.speed;
 		self.screen.blit(self.image, [self.x, self.y]);
-		
+	
 	def should_move(self, direction, yes_or_no):
 		if(direction =="up"):
 			self.should_move_up = yes_or_no; #the key is down, update itself;
