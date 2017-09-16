@@ -20,10 +20,6 @@ the_player = Player("./images/ff1.tiff", 800, 100, screen) # dont need the image
 bad_guy = Bad_Guy(screen);
 bullets = Group(); #make a new group called bullets, it's a pygame "list";
 
-
-
-
-
 def message_display(text): #display what kind of text you want
 	largeText = pygame.font.Font(None ,115)
 	start_text = largeText.render(text, True, (0,0,0));
@@ -58,8 +54,9 @@ def game_loop():
 					the_player.should_move("left", True);
 					the_player.transform_image();
 				elif(event.key == 32):
-					new_bullet = Bullet(screen, the_player);
-					bullets.add(new_bullet);
+					# new_bullet = Bullet(screen, the_player);
+					# bullets.add(new_bullet);
+					the_player.update();
 			elif(event.type ==pygame.KEYUP): 
 				if(event.key == 273):	# user pressed up	
 					the_player.should_move("up", False);
@@ -82,13 +79,10 @@ def game_loop():
 
 		#================================================================================
 			#checking if the player is left or right side, flip the image accordingly
-
-		#if(the_player.x > screenx/2):
 		the_player.draw_me(); # this method draws himself in it's own method instead of bliting on the main game screen
-		#elif(the_player.x <= screenx/2):
-		for bullet in bullets:
-			bullet.update()
-			bullet.draw_bullet();
+		# for bullet in bullets:
+		# 	bullet.update()
+		# 	bullet.draw_bullet();
 
 
 
