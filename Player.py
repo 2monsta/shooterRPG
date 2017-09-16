@@ -4,6 +4,7 @@ class Player(Sprite):
 	def __init__(self, image,start_x, start_y, screen):
 		super(Player,self).__init__(); #because it's a subclass, you have to call the parent class Sprite
 		self.image = pygame.image.load(image);
+		#can scale the image with pygame.scale(self.image (200, 200));
 		self.x = start_x;
 		self.y = start_y;
 		self.speed = 10;
@@ -23,7 +24,7 @@ class Player(Sprite):
 		elif(self.should_move_right):
 			self.x += self.speed;
 		self.screen.blit(self.image, [self.x, self.y]);
-	
+
 	def should_move(self, direction, yes_or_no):
 		if(direction =="up"):
 			self.should_move_up = yes_or_no; #the key is down, update itself;
