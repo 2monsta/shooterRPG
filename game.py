@@ -1,5 +1,4 @@
-# We have access to pygame because we sintalled it in  $ pip install pygame
-import pygame
+import pygame # We have access to pygame because we sintalled it in  $ pip install pygame
 import time
 from pygame.sprite import Group, groupcollide; #group is the same as list for pygame
 from Player import Player #custom classes here
@@ -17,8 +16,8 @@ background_image_two = pygame.image.load("./images/background2.png");
 background_image_two_resized = pygame.transform.scale(background_image_two, [1000,800])
 screen = pygame.display.set_mode(screen_size);
 pygame.display.set_caption("Hi");
-the_player = Player("./images/ff1.tiff", 800, 100, screen) # dont need the image, the x or the y
-bad_guy = Bad_Guy(screen, 200, 400);
+the_player = Player("./images/ff1.tiff", 100, 500, screen) # dont need the image, the x or the y
+bad_guy = Bad_Guy(screen, 700, 575);
 bad_guy_two = Bad_Guy(screen, 500, 400)
 bullets = Group(); #make a new group called bullets, it's a pygame "list";
 
@@ -44,10 +43,10 @@ def game_loop():
 			if event.type == pygame.QUIT:
 				game_on = False;
 			elif(event.type ==pygame.KEYDOWN): # print("user pressed a key");
-				if(event.key == 273):	# user pressed up
-					the_player.should_move("up", True);
-				elif(event.key == 274):
-					the_player.should_move("down", True);
+				# if(event.key == 273):
+				# 	the_player.should_move("up", True);
+				# elif(event.key == 274):
+				# 	the_player.should_move("down", True);
 				if(event.key == 275):
 					the_player.should_move("right", True);
 				elif(event.key == 276):
@@ -57,18 +56,20 @@ def game_loop():
 					# new_bullet = Bullet(screen, the_player);
 					# bullets.add(new_bullet);
 					the_player.update();
+					the_player.jump(True);
 			elif(event.type ==pygame.KEYUP): 
-				if(event.key == 273):	# user pressed up
-#================================================================================
-#check the goblin game to see how to keep the hero inbound		
-					the_player.should_move("up", False);
-				elif(event.key == 274):
-					the_player.should_move("down", False);
+				#if(event.key == 273):	# user pressed up	
+				# 	the_player.should_move("up", False);
+				# elif(event.key == 274):
+				# 	the_player.should_move("down", False);
 				if(event.key == 275):	
 					the_player.should_move("right", False);
 				elif(event.key == 276):
 					the_player.should_move("left", False);
 					the_player.transform_image();
+				elif(event.key == 32):
+					the_player.jump(False);
+
 		screen.blit(background_image, [0,0])
 		if(starting_text == True): #added welcome player logo at the start of the game.
 			message_display("WELCOME PLAYER");
@@ -76,23 +77,17 @@ def game_loop():
 			if(tick % 30 == 0):	
 				starting_text = False;
 		else:
-
 			screen.blit(background_image_two_resized, [0,0])
 			bad_guy.update_me(the_player)
 #================================================================================
-		#need to work on drawing them after and keeps them that way as well as gifing the monster
+			
 			bad_guy.draw_me();
 		#checking if the player is left or right side, flip the image accordingly
-			the_player.draw_me(); # this method draws himself in it's own method instead of bliting on the main game screen
+			the_player.draw_me();
 		# for bullet in bullets:
 		# 	bullet.update()
 		# 	bullet.draw_bullet();
-		pygame.display.flip(); #flip the screen so we can draw again and again
-
-
-
-
-
+		pygame.display.flip();
 game_loop();
 
 

@@ -5,10 +5,13 @@ from pygame.sprite import Sprite
 class Bad_Guy(Sprite):
 	def __init__(self, screen, x ,y ):
 		super(Bad_Guy, self).__init__();
-		self.image = pygame.image.load("./images/monster1.tiff")
+		self.image_original = pygame.image.load("./images/monster1.tiff")
+		self.image = pygame.transform.scale(self.image_original, [100, 100])
 		self.image_group = []
 		self.image_group.append(self.image);
-		self.image_group.append(pygame.image.load("./images/monster2.tiff"))
+		self.image_original2 = pygame.image.load("./images/monster2.tiff")
+		self.image_original2_transform = pygame.transform.scale(self.image_original2, [100, 100])
+		self.image_group.append(self.image_original2_transform);
 		self.index = 0;
 		self.x = x;
 		self.y = y;
@@ -25,7 +28,7 @@ class Bad_Guy(Sprite):
 	def draw_me(self):
 		# self.rect.left = self.x
 		# self.rect.top = self.y
-		self.index +=1;
+		self.index +=2;
 		if(self.index >= len(self.image_group)):
 			self.index = 0;
 		self.image = self.image_group[self.index]
