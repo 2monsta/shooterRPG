@@ -3,11 +3,15 @@ from math import hypot
 from pygame.sprite import Sprite
 
 class Bad_Guy(Sprite):
-	def __init__(self, screen):
+	def __init__(self, screen, x ,y ):
 		super(Bad_Guy, self).__init__();
-		self.image = pygame.image.load("./images/3.png")
-		self.x = 200;
-		self.y = 400;
+		self.image = pygame.image.load("./images/monster1.tiff")
+		self.image_group = []
+		self.image_group.append(self.image);
+		self.image_group.append(pygame.image.load("./images/monster2.tiff"))
+		self.index = 0;
+		self.x = x;
+		self.y = y;
 		self.screen = screen;
 		self.speed = 4;
 	def update_me(self, the_player):
@@ -21,4 +25,8 @@ class Bad_Guy(Sprite):
 	def draw_me(self):
 		# self.rect.left = self.x
 		# self.rect.top = self.y
-		self.screen.blit(self.image,[self.x,self.y])
+		self.index +=1;
+		if(self.index >= len(self.image_group)):
+			self.index = 0;
+		self.image = self.image_group[self.index]
+		self.screen.blit(self.image, [self.x, self.y])
