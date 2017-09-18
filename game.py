@@ -72,9 +72,9 @@ def game_loop():
 					the_player.should_move("left", True);
 					the_player.transform_image();
 				elif(event.key == 32):
-				# 	new_bullet = Bullet(screen, the_player);
-				# 	bullets.add(new_bullet);
-					the_player.update();
+					new_bullet = Bullet(screen, latios);
+					bullets.add(new_bullet);
+					the_player.swinging = True;
 					the_player.jump(True);
 			elif(event.type ==pygame.KEYUP): 
 				#if(event.key == 273):	
@@ -87,7 +87,7 @@ def game_loop():
 					the_player.should_move("left", False);
 					the_player.transform_image();
 				elif(event.key == 32):
-					the_player.update();
+					the_player.swinging = False ;
 					the_player.jump(False);
 
 		screen.blit(background_image, [0,0])
@@ -109,6 +109,7 @@ def game_loop():
 				for bad in enemy_group: #checks the enemy group, for anyhting
 					bad.draw_me(); #if there is, draw something, if not don't draw.
 		#checking if the player is left or right side, flip the image accordingly
+			the_player.update()
 			the_player.draw_me();
 			check_collision();
 			health();
@@ -117,9 +118,9 @@ def game_loop():
 			else:
 				latios.fly();
 				latios.draw_me();
-		# for bullet in bullets:
-		# 	bullet.update()
-		# 	bullet.draw_bullet();
+		for bullet in bullets:
+			bullet.update()
+			bullet.draw_bullet();
 		pygame.display.flip();
 game_loop();
 

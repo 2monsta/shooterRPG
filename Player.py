@@ -30,6 +30,7 @@ class Player(Sprite):
 		self.image_original_5 = pygame.image.load("./images/ff5.tiff")
 		self.image_original_5_transform = pygame.transform.scale(self.image_original_5, [170,170])
 		self.image_group.append(self.image_original_5_transform);
+		self.swinging = False;
 
 	def draw_me(self):
 		if(self.should_move_up):
@@ -57,6 +58,7 @@ class Player(Sprite):
 		self.screen.blit(self.image, [self.x, self.y])
 
 	def update(self):
+		if(self.swinging) :
 			self.index +=1;
 			if(self.index >= len(self.image_group)):
 				self.index = 0;
