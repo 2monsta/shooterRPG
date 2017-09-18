@@ -92,15 +92,15 @@ def game_loop():
 				starting_text = False;
 		else:
 			screen.blit(background_image_two_resized, [0,0])
-			for i in enemy_group:
+			for i in enemy_group: #this moves the bad_guy in the enemy group towards the hero
 				i.update_me(the_player)
-			if(len(enemy_group)== 0):
-				bad_guy_new = Bad_Guy(screen, 700, 575)
-				bad_guy_new.draw_me();
-				enemy_group.add(bad_guy_new);
+			if(len(enemy_group)== 0): #checks to see if anyone is in the enemy group
+				bad_guy_new = Bad_Guy(screen, 700, 575) #if there isnt, make a new bad guy
+				bad_guy_new.draw_me(); #draw him
+				enemy_group.add(bad_guy_new); #add him to the bad guy group
 			else:
-				for bad in enemy_group:
-					bad.draw_me();
+				for bad in enemy_group: #checks the enemy group, for anyhting
+					bad.draw_me(); #if there is, draw something, if not don't draw.
 		#checking if the player is left or right side, flip the image accordingly
 			the_player.draw_me();
 		# for bullet in bullets:
