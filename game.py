@@ -21,8 +21,6 @@ the_player = Player("./images/ff1.tiff", 100, 500, screen) # dont need the image
 bad_guy = Bad_Guy(screen, 700, 575);
 latios = Latios(screen);
 
-last_bullet_drop = time.time()
-
 
 bullets = Group(); #make a new group called bullets, it's a pygame "list";
 hero_group = Group();
@@ -59,6 +57,7 @@ def game_loop():
 	starting_text = True;
 	game_on = True;
 	tick = 0;
+	last_bullet_drop = time.time()
 	while game_on: #will run forever until break
 		tick+=1; #keeps track of seconds/frames per second
 		for event in pygame.event.get(): #loop through all the pygame events, gave it a escape patch
@@ -111,7 +110,7 @@ def game_loop():
 					bad.draw_me(); #if there is, draw something, if not don't draw.
 			
 			new_bullet = Bullet(screen, latios);
-			if(time.time() > last_bullet_drop + 1):
+			if(time.time() > last_bullet_drop + 2):
 				bullets.add(new_bullet);
 				last_bullet_drop = time.time()
 

@@ -10,6 +10,6 @@ class Latios(Sprite):
         self.screen = screen;
         self.image = pygame.image.load("./images/latios.png")
     def fly(self):
-        self.x -= 10;
+        self.x -= 5;
     def draw_me(self):
         self.screen.blit(self.image, [self.x, self.y])

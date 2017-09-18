@@ -16,7 +16,6 @@ class Bullet(Sprite):
 		self.rect.top = the_player.y
 		self.x = self.rect.x;
 		self.y = self.rect.y;
-		self.last_bullet_drop = time.time();
 	def update(self):
 		if self.direction == 1: #up
 			self.y -= self.speed #change the y, each time update is run, by bullet speed
@@ -33,7 +32,4 @@ class Bullet(Sprite):
 	def draw_bullet(self):
 		#pygame.draw.rect(self.screen, self.color, self.rect) #draw the bullet!
 		self.screen.blit(self.image, [self.x, self.y])
-	def add_bullets(self):
-		if(time.time() > last_bullet_drop + 1):
-			bullets.add(new_bullet);
-			last_bullet_drop = time.time()
+	
