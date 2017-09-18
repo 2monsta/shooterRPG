@@ -6,7 +6,7 @@ class Bullet(Sprite):
 	def __init__(self,screen, the_player):
 		super(Bullet,self).__init__();
 		self.screen = screen;
-		self.image_original = pygame.image.load("./images/tordepdo.png");
+		self.image_original = pygame.image.load("./images/torpedo.png");
 		self.image = pygame.transform.scale(self.image_original, [70,70])
 		self.rect = pygame.Rect(0,0,5,20);
 		self.color= (0,0,0);

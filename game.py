@@ -126,7 +126,7 @@ def game_loop():
 		for bullet in bullets:
 			bullet.update()
 			bullet.draw_bullet();
-			if(bullet.y==600 and bullet.index ==14): #keeping the bullets at the stop    
+			if(bullet.y >= 600 and bullet.index ==14): #keeping the bullets at the stop    
 				bullets.remove(bullet);
 		pygame.display.flip();
 game_loop();
