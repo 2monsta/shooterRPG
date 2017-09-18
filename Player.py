@@ -7,6 +7,7 @@ class Player(Sprite):
 		self.image = pygame.transform.scale(self.image_original, [170, 170])
 		self.x = start_x;
 		self.y = start_y;
+		self.rect = pygame.Rect(start_x, start_y, 170, 170) #added myself
 		self.speed = 10;
 		self.screen = screen;
 		self.should_move_up = False;
@@ -38,6 +39,7 @@ class Player(Sprite):
 			self.x -= self.speed;
 		elif(self.should_move_right):
 			self.x += self.speed;
+		self.rect = pygame.Rect(self.x, self.y, 170, 170)
 		self.screen.blit(self.image, [self.x, self.y]);
 
 	def should_move(self, direction, yes_or_no):
@@ -53,12 +55,12 @@ class Player(Sprite):
 		self.image = pygame.transform.flip(self.image, True, False);
 		self.screen.blit(self.image, [self.x, self.y])
 
-	def update(self): #change directions!
-		self.index +=1;
-		if(self.index >= len(self.image_group)):
-			self.index = 0;
-		self.image = self.image_group[self.index]
-		self.screen.blit(self.image, [self.x, self.y])
+	def update(self):
+			self.index +=1;
+			if(self.index >= len(self.image_group)):
+				self.index = 0;
+			self.image = self.image_group[self.index]
+			self.screen.blit(self.image, [self.x, self.y])
 	def jump(self, true_or_false):
 		if(true_or_false == True):
 			self.y -=50;
