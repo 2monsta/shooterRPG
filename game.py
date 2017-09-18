@@ -4,7 +4,8 @@ from pygame.sprite import Group, groupcollide;
 from Player import Player #custom classes here
 from Bad_guy import Bad_Guy; 
 from Bullet import Bullet
-from Text import Text;
+from Latios import Latios
+import random
 
 pygame.init();
 screenx = 1000;
@@ -18,6 +19,7 @@ screen = pygame.display.set_mode(screen_size);
 pygame.display.set_caption("Hi");
 the_player = Player("./images/ff1.tiff", 100, 500, screen) # dont need the image, the x or the y
 bad_guy = Bad_Guy(screen, 700, 575);
+latios = Latios(screen);
 
 bullets = Group(); #make a new group called bullets, it's a pygame "list";
 hero_group = Group();
@@ -40,9 +42,14 @@ def message_players_name(text, name):
 	screen.blit(story, [screenx/2 -350, screeny/2 -50]);
 	pygame.display.update()
 def check_collision():
-	pygame.sprite.groupcollide(hero_group, enemy_group, True, True);
+	pygame.sprite.groupcollide(hero_group, enemy_group, False, True);
 		
-
+def health():
+	text = pygame.font.Font(None, 20);
+	healt_c = text.render("HEALTH_COUNT: %d" % the_player.health, True, (0, 0, 0))
+	monster_killed = text.render("Monster Killed: %d" %bad_guy.bad_guy_count, True, (0, 0, 0));
+	screen.blit(healt_c, [100, 50])
+	screen.blit(monster_killed, [100, 70])
 
 
 def game_loop():
@@ -65,8 +72,8 @@ def game_loop():
 					the_player.should_move("left", True);
 					the_player.transform_image();
 				elif(event.key == 32):
-					# new_bullet = Bullet(screen, the_player);
-					# bullets.add(new_bullet);
+				# 	new_bullet = Bullet(screen, the_player);
+				# 	bullets.add(new_bullet);
 					the_player.update();
 					the_player.jump(True);
 			elif(event.type ==pygame.KEYUP): 
@@ -82,7 +89,6 @@ def game_loop():
 				elif(event.key == 32):
 					the_player.update();
 					the_player.jump(False);
-		pygame.sprite.groupcollide(hero_group, enemy_group, False, True);
 
 		screen.blit(background_image, [0,0])
 		if(starting_text == True): #added welcome player logo at the start of the game.
@@ -95,6 +101,7 @@ def game_loop():
 			for i in enemy_group: #this moves the bad_guy in the enemy group towards the hero
 				i.update_me(the_player)
 			if(len(enemy_group)== 0): #checks to see if anyone is in the enemy group
+				bad_guy.bad_guy_count+=1;
 				bad_guy_new = Bad_Guy(screen, 700, 575) #if there isnt, make a new bad guy
 				bad_guy_new.draw_me(); #draw him
 				enemy_group.add(bad_guy_new); #add him to the bad guy group
@@ -103,6 +110,13 @@ def game_loop():
 					bad.draw_me(); #if there is, draw something, if not don't draw.
 		#checking if the player is left or right side, flip the image accordingly
 			the_player.draw_me();
+			check_collision();
+			health();
+			if(latios.x < 0):
+				latios.x = 900;
+			else:
+				latios.fly();
+				latios.draw_me();
 		# for bullet in bullets:
 		# 	bullet.update()
 		# 	bullet.draw_bullet();
@@ -110,8 +124,6 @@ def game_loop():
 game_loop();
 
 
-#lastly, check for collision! GET THIS DONE TONIGHT!
 
 
-
-
+#TODO: make collision between hero pixels correct

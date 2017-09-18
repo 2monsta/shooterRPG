@@ -15,6 +15,7 @@ class Bad_Guy(Sprite):
 		self.index = 0;
 		self.x = x;
 		self.y = y;
+		self.bad_guy_count = 0;
 		self.rect = pygame.Rect(x,y,100,100) #added
 		self.screen = screen;
 		self.speed = 4;
@@ -30,7 +31,7 @@ class Bad_Guy(Sprite):
 	def draw_me(self):
 		# self.rect.left = self.x
 		# self.rect.top = self.y
-		self.index +=2;
+		self.index +=1;
 		if(self.index >= len(self.image_group)):
 			self.index = 0;
 		self.image = self.image_group[self.index]
