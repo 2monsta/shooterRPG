@@ -21,6 +21,9 @@ the_player = Player("./images/ff1.tiff", 100, 500, screen) # dont need the image
 bad_guy = Bad_Guy(screen, 700, 575);
 latios = Latios(screen);
 
+last_bullet_drop = time.time()
+
+
 bullets = Group(); #make a new group called bullets, it's a pygame "list";
 hero_group = Group();
 enemy_group = Group();
@@ -72,15 +75,13 @@ def game_loop():
 					the_player.should_move("left", True);
 					the_player.transform_image();
 				elif(event.key == 32):
-					new_bullet = Bullet(screen, latios);
-					bullets.add(new_bullet);
 					the_player.swinging = True;
 					the_player.jump(True);
 			elif(event.type ==pygame.KEYUP): 
 				#if(event.key == 273):	
 				# 	the_player.should_move("up", False);
 				# elif(event.key == 274):
-				# 	the_player.should_move("down", False);
+				# 	the_player.should_move("down", False);  
 				if(event.key == pygame.K_d):	
 					the_player.should_move("right", False);
 				elif(event.key == pygame.K_a):
@@ -108,7 +109,12 @@ def game_loop():
 			else:
 				for bad in enemy_group: #checks the enemy group, for anyhting
 					bad.draw_me(); #if there is, draw something, if not don't draw.
-		#checking if the player is left or right side, flip the image accordingly
+			
+			new_bullet = Bullet(screen, latios);
+			if(time.time() > last_bullet_drop + 1):
+				bullets.add(new_bullet);
+				last_bullet_drop = time.time()
+
 			the_player.update()
 			the_player.draw_me();
 			check_collision();
@@ -128,3 +134,4 @@ game_loop();
 
 
 #TODO: make collision between hero pixels correct
+#TODO: check the image for flipping
