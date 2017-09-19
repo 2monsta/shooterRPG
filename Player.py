@@ -8,7 +8,7 @@ class Player(Sprite):
 		self.x = start_x;
 		self.y = start_y;
 		self.health = 3;
-		self.rect = pygame.Rect(start_x, start_y, 30, 30) #added myself
+		self.rect = pygame.Rect(start_x, start_y, 50, 50) #added myself
 		self.speed = 10;
 		self.screen = screen;
 		self.should_move_up = False;
@@ -41,7 +41,7 @@ class Player(Sprite):
 			self.x -= self.speed;
 		elif(self.should_move_right):
 			self.x += self.speed;
-		self.rect = pygame.Rect(self.x, self.y, 100, 100)
+		self.rect = pygame.Rect(self.x, self.y, 50, 50)
 		self.screen.blit(self.image, [self.x, self.y]);
 
 	def should_move(self, direction, yes_or_no):

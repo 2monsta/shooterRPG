@@ -6,11 +6,11 @@ class Bad_Guy(Sprite):
 	def __init__(self, screen, x ,y ):
 		super(Bad_Guy, self).__init__();
 		self.image_original = pygame.image.load("./images/monster1.tiff")
-		self.image = pygame.transform.scale(self.image_original, [70, 70])
+		self.image = pygame.transform.scale(self.image_original, [30, 30])
 		self.image_group = []
 		self.image_group.append(self.image);
 		self.image_original2 = pygame.image.load("./images/monster2.tiff")
-		self.image_original2_transform = pygame.transform.scale(self.image_original2, [70, 70])
+		self.image_original2_transform = pygame.transform.scale(self.image_original2, [30, 30])
 		self.image_group.append(self.image_original2_transform);
 		self.index = 0;
 		self.x = x;
@@ -35,5 +35,5 @@ class Bad_Guy(Sprite):
 		if(self.index >= len(self.image_group)):
 			self.index = 0;
 		self.image = self.image_group[self.index]
-		self.rect = pygame.Rect(self.x,self.y,70,70)
+		self.rect = pygame.Rect(self.x,self.y,50,50)
 		self.screen.blit(self.image, [self.x, self.y])

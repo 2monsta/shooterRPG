@@ -14,9 +14,12 @@ pygame.init();
 pygame.mixer.init()
 pygame.mixer.music.load("./music/price_of_freedom.mp3")
 pygame.mixer.music.play()
-#====================All the Variables==============================
+#====================================================================
+#====================All the Variables===============================
+#====================================================================
 back_image_long = pygame.image.load("./images/space_long.png");
-bomb_sound = pygame.mixer.Sound("./music/bomb.wav")
+bomb_sound= pygame.mixer.Sound("./music/bomb.wav")
+bomb_sound.set_volume(0.25);
 screenx = 500;
 screeny = 400;
 screen_size =(screenx, screeny);
@@ -28,7 +31,7 @@ background_image_two_resized = pygame.transform.scale(background_image_two, [500
 screen = pygame.display.set_mode(screen_size);
 pygame.display.set_caption("Hi");
 the_player = Player("./images/ff1.tiff", 100, 300, screen) # dont need the image, the x or the y
-bad_guy = Bad_Guy(screen, 300, 300);
+bad_guy = Bad_Guy(screen, 300, 335);
 latios = Latios(screen, 300, 50);
 latios_two = Latios(screen, 100, 50);
 
@@ -67,8 +70,9 @@ def health():
 	screen.blit(monster_killed, [100, 70])
 
 
-
+#====================================================================
 #====================Main Game Function==============================
+#====================================================================
 def game_loop():
 	starting_text = True;
 	game_on = True;
@@ -86,28 +90,32 @@ def game_loop():
 				# 	the_player.should_move("up", True);
 				# elif(event.key == pygame.K_s):
 				# 	the_player.should_move("down", True);
-				# if(event.key == pygame.K_d):
-				# 	the_player.should_move("right", True);
-				# elif(event.key == pygame.K_a):
-				# 	the_player.should_move("left", True);
-				# 	the_player.transform_image();
-				if(event.key == 32): # this use to be elif
-					the_player.swinging = True;
+				if(event.key == pygame.K_d):
+					the_player.should_move("right", True);
+				elif(event.key == pygame.K_a):
+					the_player.should_move("left", True);
+					the_player.transform_image();
+				elif(event.key == 32): # this use to be elif
 					the_player.jump(True);
+				elif(event.key == pygame.K_c):
+					the_player.swinging = True;
 			elif(event.type ==pygame.KEYUP): 
 				# if(event.key == pygame.K_w):	
 				# 	the_player.should_move("up", False);
 				# elif(event.key == pygame.K_s):
 				# 	the_player.should_move("down", False);  
-				# if(event.key == pygame.K_d):	
-				# 	the_player.should_move("right", False);
-				# elif(event.key == pygame.K_a):
-				# 	the_player.should_move("left", False);
-				# 	the_player.transform_image();
-				if(event.key == 32): # this use to be elif
-					the_player.swinging = False ;
+				if(event.key == pygame.K_d):	
+					the_player.should_move("right", False);
+				elif(event.key == pygame.K_a):
+					the_player.should_move("left", False);
+					the_player.transform_image();
+				elif(event.key == 32): # this use to be elif
 					the_player.jump(False);
-#====================Drawing Everything==============================					
+				elif(event.key == pygame.K_c):
+					the_player.swinging = False;
+#====================================================================
+#====================Drawing Everything==============================
+#====================================================================					
 		screen.blit(background_image, [0,0])
 		if(starting_text == True): #added welcome player logo at the start of the game.
 			message_display("WELCOME PLAYER");
@@ -117,34 +125,34 @@ def game_loop():
 		else:
 #====================Image Moving========================================
 			rel_x = x % back_image_long.get_rect().width;
-
 			screen.blit(back_image_long, [rel_x - back_image_long.get_rect().width, 0])
 			if( rel_x < 500):
 				screen.blit(back_image_long, [rel_x, 0])
 			x -= 1
-
+#====================Looping through enemy group========================================
 			for i in enemy_group: #this moves the bad_guy in the enemy group towards the hero
 				i.update_me(the_player)
 			if(len(enemy_group)== 0): #checks to see if anyone is in the enemy group
 				bad_guy.bad_guy_count+=1;
-				bad_guy_new = Bad_Guy(screen, 700, 575) #if there isnt, make a new bad guy
+				bad_guy_new = Bad_Guy(screen, 300, 335) #if there isnt, make a new bad guy
 				bad_guy_new.draw_me(); #draw him
 				enemy_group.add(bad_guy_new); #add him to the bad guy group
 			else:
 				for bad in enemy_group: #checks the enemy group, for anyhting
 					bad.draw_me(); #if there is, draw something, if not don't draw.
-			
+#====================Drawing the bullets and have latios drop them====================			
 			new_bullet = Bullet(screen, latios);
 			new_bullet_2 = Bullet(screen, latios_two);
 			if(time.time() > last_bullet_drop + 2):
 				bullets.add(new_bullet);
 				bullets.add(new_bullet_2);
 				last_bullet_drop = time.time()
-
+#====================Draw the player and check for collision====================
 			the_player.update()
 			the_player.draw_me();
 			check_collision();
 			health();
+#====================Draws latios========================================
 			if(latios.x < 0 ):
 				latios.x = 900;
 			else:
@@ -154,7 +162,7 @@ def game_loop():
 				latios_two.x = 0;
 			else:
 				latios_two.fly_two();
-#====================Lopping Through bullets====================				
+#====================Lopping Through bullets and drop them====================				
 		for bullet in bullets:
 			bullet.update()
 			bullet.draw_bullet();
