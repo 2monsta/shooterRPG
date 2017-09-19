@@ -4,11 +4,11 @@ class Player(Sprite):
 	def __init__(self, image,start_x, start_y, screen):
 		super(Player,self).__init__(); #because it's a subclass, you have to call the parent class Sprite
 		self.image_original = pygame.image.load(image);
-		self.image = pygame.transform.scale(self.image_original, [170, 170])
+		self.image = pygame.transform.scale(self.image_original, [70, 70])
 		self.x = start_x;
 		self.y = start_y;
 		self.health = 3;
-		self.rect = pygame.Rect(start_x, start_y, 100, 100) #added myself
+		self.rect = pygame.Rect(start_x, start_y, 30, 30) #added myself
 		self.speed = 10;
 		self.screen = screen;
 		self.should_move_up = False;
@@ -19,16 +19,16 @@ class Player(Sprite):
 		self.index = 0;
 		self.image_group.append(self.image);
 		self.image_original_2 = pygame.image.load("./images/ff2.tiff")
-		self.image_original_2_transform = pygame.transform.scale(self.image_original_2, [170,170])
+		self.image_original_2_transform = pygame.transform.scale(self.image_original_2, [70,70])
 		self.image_group.append(self.image_original_2_transform);
 		self.image_original_3 = pygame.image.load("./images/ff3.tiff")
-		self.image_original_3_transform = pygame.transform.scale(self.image_original_3, [170,170])
+		self.image_original_3_transform = pygame.transform.scale(self.image_original_3, [70,70])
 		self.image_group.append(self.image_original_3_transform)
 		self.image_original_4 = pygame.image.load("./images/ff4.tiff")
-		self.image_original_4_transform = pygame.transform.scale(self.image_original_4, [170,170])
+		self.image_original_4_transform = pygame.transform.scale(self.image_original_4, [70,70])
 		self.image_group.append(self.image_original_4_transform)
 		self.image_original_5 = pygame.image.load("./images/ff5.tiff")
-		self.image_original_5_transform = pygame.transform.scale(self.image_original_5, [170,170])
+		self.image_original_5_transform = pygame.transform.scale(self.image_original_5, [70,70])
 		self.image_group.append(self.image_original_5_transform);
 		self.swinging = False;
 
@@ -58,7 +58,7 @@ class Player(Sprite):
 		self.screen.blit(self.image, [self.x, self.y])
 
 	def update(self):
-		if(self.swinging) :
+		if(self.swinging or self.index >0) :
 			self.index +=1;
 			if(self.index >= len(self.image_group)):
 				self.index = 0;
@@ -70,4 +70,4 @@ class Player(Sprite):
 			self.screen.blit(self.image, [self.x, self.y])
 		else:
 			self.y +=110;
-			self.screen.blit(self.image, [self.x, self.y])
+			self.screen.blit(self.image_original, [self.x, self.y])

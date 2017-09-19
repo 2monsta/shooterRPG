@@ -7,8 +7,8 @@ class Bullet(Sprite):
 		super(Bullet,self).__init__();
 		self.screen = screen;
 		self.image_original = pygame.image.load("./images/torpedo.png");
-		self.image = pygame.transform.scale(self.image_original, [70,70])
-		self.rect = pygame.Rect(0,0,5,20);
+		self.image = pygame.transform.scale(self.image_original, [20,20])
+		self.rect = pygame.Rect(0,0,10,10);
 		self.color= (0,0,0);
 		self.speed = 15;
 		self.direction = 3;
@@ -66,8 +66,8 @@ class Bullet(Sprite):
 	def draw_bullet(self):
 		#pygame.draw.rect(self.screen, self.color, self.rect) #draw the bullet!
 		self.screen.blit(self.image, [self.x, self.y])
-		if(self.y > 550):
-			self.y = 550
+		if(self.y > 300):
+			self.y = 300
 			self.index +=1;
 			if(self.index>=len(self.explosion_list)):
 				self.index =0;

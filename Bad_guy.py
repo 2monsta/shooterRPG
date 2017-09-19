@@ -16,7 +16,7 @@ class Bad_Guy(Sprite):
 		self.x = x;
 		self.y = y;
 		self.bad_guy_count = 0;
-		self.rect = pygame.Rect(x,y,70,70) #added
+		self.rect = pygame.Rect(x,y,30,30) #added
 		self.screen = screen;
 		self.speed = 2;
 	def update_me(self, the_player):
