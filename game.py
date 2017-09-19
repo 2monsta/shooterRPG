@@ -7,7 +7,13 @@ from Bullet import Bullet
 from Latios import Latios
 import random
 
+
+
 pygame.init();
+pygame.mixer.init()
+pygame.mixer.music.load("./music/price_of_freedom.mp3")
+pygame.mixer.music.play()
+bomb_sound = pygame.mixer.Sound("./music/bomb.wav")
 screenx = 1000;
 screeny = 800;
 screen_size =(screenx, screeny);
@@ -123,10 +129,15 @@ def game_loop():
 			else:
 				latios.fly();
 				latios.draw_me();
+		#loops through the bullet group and update and draw
 		for bullet in bullets:
 			bullet.update()
 			bullet.draw_bullet();
-			if(bullet.y >= 600 and bullet.index ==14): #keeping the bullets at the stop    
+			#if bullet's y is > 550, and the bullet index is at 14 meaning the explosion reached the last image, then remove the bullets from
+			#the group
+			if(bullet.y >= 550 and bullet.index ==14): #keeping the bullets at the stop    
+				if(bullet.y == 550):
+					bomb_sound.play();
 				bullets.remove(bullet);
 		pygame.display.flip();
 game_loop();

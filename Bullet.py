@@ -66,11 +66,10 @@ class Bullet(Sprite):
 	def draw_bullet(self):
 		#pygame.draw.rect(self.screen, self.color, self.rect) #draw the bullet!
 		self.screen.blit(self.image, [self.x, self.y])
-		if(self.y > 600):
-			self.y = 600
+		if(self.y > 550):
+			self.y = 550
 			self.index +=1;
 			if(self.index>=len(self.explosion_list)):
 				self.index =0;
 			self.image = self.explosion_list[self.index]
 			self.screen.blit(self.image, [self.x, self.y])
-			self.screen.blit(self.image, [-100, -10 ]);
